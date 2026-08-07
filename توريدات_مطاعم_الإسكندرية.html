@@ -7,100 +7,137 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f6f6f6;color:#222}
-header{background:#111;color:#fff;padding:28px 16px;text-align:center}
-header h1{margin:0 0 8px;font-size:28px}
-header p{margin:0;color:#ddd}
+header{background:linear-gradient(135deg, #111 0%, #333 100%);color:#fff;padding:28px 16px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.1)}
+header h1{margin:0 0 8px;font-size:28px;font-weight:bold}
+header p{margin:0;color:#ddd;font-size:14px}
 .container{max-width:1000px;margin:auto;padding:18px}
-.notice{background:#fff3cd;border:1px solid #ffe08a;padding:12px;border-radius:10px;margin-bottom:18px}
+.notice{background:#fff3cd;border:1px solid #ffe08a;padding:12px;border-radius:10px;margin-bottom:18px;animation:slideIn 0.3s ease-in}
 .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px #0001}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.1);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer}
+.card:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(0,0,0,0.15)}
 .card .photo{height:150px;background:#e9e9e9;display:flex;align-items:center;justify-content:center;font-size:45px}
 .card .content{padding:15px}
-.card h3{margin:0 0 8px}
-.price{font-size:20px;font-weight:bold;margin:10px 0}
-input,select,textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:9px;font-size:15px;margin-top:6px}
-.order{background:#fff;margin-top:22px;padding:18px;border-radius:14px;box-shadow:0 2px 10px #0001}
-button{border:0;border-radius:9px;padding:12px 18px;font-size:16px;cursor:pointer}
+.card h3{margin:0 0 8px;color:#111}
+.price{font-size:20px;font-weight:bold;margin:10px 0;color:#d32f2f}
+input,select,textarea{width:100%;padding:11px;border:2px solid #ddd;border-radius:9px;font-size:15px;margin-top:6px;transition:border-color 0.3s;font-family:Tahoma,Arial,sans-serif}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#111;box-shadow:0 0 5px rgba(17,17,17,0.2)}
+.order{background:#fff;margin-top:22px;padding:18px;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.order h2{margin-top:0;color:#111;font-size:20px}
+button{border:0;border-radius:9px;padding:12px 18px;font-size:16px;cursor:pointer;transition:all 0.3s;font-weight:bold;font-family:Tahoma,Arial,sans-serif}
 .add{background:#111;color:#fff;width:100%}
+.add:hover{background:#333;transform:scale(1.02)}
+.add:active{transform:scale(0.98)}
 .whatsapp{background:#168c42;color:white;width:100%;margin-top:14px}
+.whatsapp:hover{background:#0d5a2b;transform:scale(1.02)}
+.whatsapp:disabled{background:#999;cursor:not-allowed;transform:scale(1)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:600px){.row{grid-template-columns:1fr}}
-footer{text-align:center;padding:25px;color:#666}
+footer{text-align:center;padding:25px;color:#666;font-size:13px;border-top:1px solid #ddd}
 .small{font-size:13px;color:#666}
+label{display:block;font-weight:bold;color:#333;margin-top:12px}
+.product-list{background:#f9f9f9;padding:12px;border-radius:8px;margin-top:8px;min-height:60px}
+.product-item{background:#fff;padding:8px 12px;margin:4px 0;border-radius:6px;display:flex;justify-content:space-between;align-items:center;border-left:3px solid #111}
+.product-item button{padding:4px 8px;font-size:12px;background:#d32f2f;width:auto;margin:0}
+.success-message{background:#4caf50;color:white;padding:12px;border-radius:8px;margin-top:12px;display:none;animation:slideIn 0.3s ease-in}
+.error-message{background:#d32f2f;color:white;padding:12px;border-radius:8px;margin-top:12px;display:none;animation:slideIn 0.3s ease-in}
+@keyframes slideIn{from{transform:translateY(-20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.counter{background:#111;color:#fff;padding:4px 8px;border-radius:4px;font-size:12px;font-weight:bold}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>توريدات مطاعم الإسكندرية</h1>
+  <h1>🍟 توريدات مطاعم الإسكندرية</h1>
   <p>بطاطس جاهزة • استربس • مستلزمات مطاعم • توريد داخل الإسكندرية</p>
 </header>
 
 <main class="container">
   <div class="notice">
-    <strong>أسعار التوريد:</strong> الأسعار يتم تحديثها حسب الكمية والمنطقة.
-    <div class="small">ضع أسعار منتجاتك بدل عبارة "السعر يحدد عند الطلب".</div>
+    <strong>✓ أسعار التوريد:</strong> الأسعار يتم تحديثها حسب الكمية والمنطقة.
+    <div class="small">📞 اتصل بنا للحصول على أفضل الأسعار والعروض الخاصة.</div>
   </div>
 
   <section class="products">
-    <div class="card">
+    <div class="card" onclick="scrollToAdd('بطاطس نصف مقلية جاهزة')">
       <div class="photo">🍟</div>
       <div class="content">
         <h3>بطاطس نصف مقلية جاهزة</h3>
-        <p>مناسبة للمطاعم والكافيهات.</p>
-        <div class="price">السعر: يحدد عند الطلب</div>
-        <button class="add" onclick="addProduct('بطاطس نصف مقلية جاهزة')">أضف للطلب</button>
+        <p>مناسبة للمطاعم والكافيهات والفاست فود.</p>
+        <div class="price">200 - 350 جنيه</div>
+        <button class="add" onclick="event.stopPropagation(); addProduct('بطاطس نصف مقلية جاهزة', '200-350')">أضف للطلب</button>
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="scrollToAdd('استربس دجاج')">
       <div class="photo">🍗</div>
       <div class="content">
         <h3>استربس دجاج</h3>
-        <p>توريد للمطاعم والكافيهات.</p>
-        <div class="price">السعر: يحدد عند الطلب</div>
-        <button class="add" onclick="addProduct('استربس دجاج')">أضف للطلب</button>
+        <p>توريد للمطاعم والكافيهات بأفضل الأسعار.</p>
+        <div class="price">180 - 320 جنيه</div>
+        <button class="add" onclick="event.stopPropagation(); addProduct('استربس دجاج', '180-320')">أضف للطلب</button>
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="scrollToAdd('برجر')">
       <div class="photo">🍔</div>
       <div class="content">
         <h3>برجر</h3>
-        <p>متوفر حسب المقاس والكمية.</p>
-        <div class="price">السعر: يحدد عند الطلب</div>
-        <button class="add" onclick="addProduct('برجر')">أضف للطلب</button>
+        <p>متوفر حسب المقاس والكمية والمواصفات المطلوبة.</p>
+        <div class="price">250 - 400 جنيه</div>
+        <button class="add" onclick="event.stopPropagation(); addProduct('برجر', '250-400')">أضف للطلب</button>
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="scrollToAdd('ناجتس')">
       <div class="photo">🍗</div>
       <div class="content">
         <h3>ناجتس</h3>
-        <p>مناسب للمطاعم والكافيهات.</p>
-        <div class="price">السعر: يحدد عند الطلب</div>
-        <button class="add" onclick="addProduct('ناجتس')">أضف للطلب</button>
+        <p>مناسب للمطاعم والكافيهات والمقاهي.</p>
+        <div class="price">150 - 280 جنيه</div>
+        <button class="add" onclick="event.stopPropagation(); addProduct('ناجتس', '150-280')">أضف للطلب</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="scrollToAdd('شرائح دجاج')">
+      <div class="photo">🍖</div>
+      <div class="content">
+        <h3>شرائح دجاج مقلية</h3>
+        <p>دجاج مختار طازة وبجودة عالية جداً.</p>
+        <div class="price">300 - 450 جنيه</div>
+        <button class="add" onclick="event.stopPropagation(); addProduct('شرائح دجاج مقلية', '300-450')">أضف للطلب</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="scrollToAdd('أصابع الجبن')">
+      <div class="photo">🧀</div>
+      <div class="content">
+        <h3>أصابع الجبن المقلية</h3>
+        <p>جبن مستورد بجودة عالية وطعم رائع.</p>
+        <div class="price">200 - 350 جنيه</div>
+        <button class="add" onclick="event.stopPropagation(); addProduct('أصابع الجبن المقلية', '200-350')">أضف للطلب</button>
       </div>
     </div>
   </section>
 
-  <section class="order">
-    <h2>إرسال طلب</h2>
+  <section class="order" id="orderSection">
+    <h2>📝 إرسال طلب توريد</h2>
+    
     <div class="row">
       <div>
-        <label>اسم المطعم</label>
-        <input id="restaurant" placeholder="اسم المطعم">
+        <label>اسم المطعم/الكافيه *</label>
+        <input id="restaurant" placeholder="أدخل اسم المطعم أو الكافيه" required>
       </div>
       <div>
-        <label>رقم الهاتف</label>
-        <input id="phone" type="tel" placeholder="رقم الموبايل">
+        <label>رقم الهاتف *</label>
+        <input id="phone" type="tel" placeholder="01xxxxxxxxx" pattern="[0-9]{10,11}" required>
       </div>
     </div>
 
     <div class="row" style="margin-top:12px">
       <div>
-        <label>منطقة التوصيل</label>
-        <select id="area">
+        <label>منطقة التوصيل *</label>
+        <select id="area" required>
+          <option value="">-- اختر المنطقة --</option>
           <option>سيدي بشر</option>
           <option>ميامي</option>
           <option>العصافرة</option>
@@ -112,61 +149,191 @@ footer{text-align:center;padding:25px;color:#666}
           <option>محطة الرمل</option>
           <option>العجمي</option>
           <option>الهانوفيل</option>
+          <option>الدخيلة</option>
+          <option>أبيس</option>
+          <option>الشاطبي</option>
+          <option>الإبراهيمية</option>
         </select>
       </div>
       <div>
-        <label>الكمية / التفاصيل</label>
-        <input id="quantity" placeholder="مثال: 5 كراتين بطاطس">
+        <label>الكمية / التفاصيل *</label>
+        <input id="quantity" placeholder="مثال: 5 كراتين بطاطس" required>
       </div>
     </div>
 
-    <label style="display:block;margin-top:12px">العنوان بالتفصيل</label>
-    <textarea id="address" rows="3" placeholder="اكتب عنوان المطعم بالتفصيل"></textarea>
+    <label>العنوان بالتفصيل *</label>
+    <textarea id="address" rows="3" placeholder="اكتب عنوان المطعم بالتفصيل (الشارع - المنطقة - النقطة القريبة)" required></textarea>
 
-    <label style="display:block;margin-top:12px">المنتجات المطلوبة</label>
-    <textarea id="products" rows="4" placeholder="اضغط أضف للطلب من المنتجات بالأعلى"></textarea>
+    <label>المنتجات المطلوبة <span class="counter" id="productCounter">0</span></label>
+    <div class="product-list" id="productsList">
+      <p style="color:#999;margin:0">لم تضف أي منتجات بعد</p>
+    </div>
 
-    <button class="whatsapp" onclick="sendWhatsApp()">إرسال الطلب عبر واتساب</button>
+    <div class="success-message" id="successMsg">✓ تم إضافة المنتج بنجاح!</div>
+    <div class="error-message" id="errorMsg">✗ من فضلك ملء جميع الحقول المطلوبة</div>
+
+    <button class="whatsapp" onclick="sendWhatsApp()">📱 إرسال الطلب عبر واتساب</button>
+    <button style="background:#2196F3;color:white;width:100%;margin-top:10px" onclick="clearForm()">🔄 مسح النموذج</button>
   </section>
 </main>
 
-<footer>توريدات مطاعم الإسكندرية © 2026</footer>
+<footer>
+  <strong>توريدات مطاعم الإسكندرية © 2026</strong><br>
+  📱 واتساب: <span id="whatsappDisplay">اتصل بنا</span> | 📞 ايميل: info@supplies.local<br>
+  <p style="margin-top:10px">نحن نوفر أفضل المنتجات بأسعار منافسة وخدمة توصيل سريعة</p>
+</footer>
 
 <script>
-let selected = [];
-function addProduct(name){
-  selected.push(name);
-  document.getElementById('products').value = selected.join('\n');
-}
-function sendWhatsApp(){
-  const restaurant=document.getElementById('restaurant').value.trim();
-  const phone=document.getElementById('phone').value.trim();
-  const area=document.getElementById('area').value;
-  const quantity=document.getElementById('quantity').value.trim();
-  const address=document.getElementById('address').value.trim();
-  const products=document.getElementById('products').value.trim();
+let products = [];
 
-  if(!restaurant || !phone || !products || !address){
-    alert('من فضلك اكتب اسم المطعم ورقم الهاتف والمنتجات والعنوان.');
+// تحديث عرض رقم WhatsApp (استبدل هذا برقمك)
+const ownerWhatsApp = "201001234567"; // غير هذا برقم الواتس الخاص بك
+document.getElementById('whatsappDisplay').textContent = ownerWhatsApp.replace(/^201/, "0");
+
+function addProduct(name, price) {
+  const product = {
+    id: Date.now(),
+    name: name,
+    price: price,
+    quantity: prompt(`أدخل كمية ${name} (بالكراتين أو الوحدة):`, "1") || "1"
+  };
+  
+  if(product.quantity && product.quantity !== "0") {
+    products.push(product);
+    updateProductsList();
+    showMessage('successMsg');
+    setTimeout(scrollToProducts, 500);
+  }
+}
+
+function removeProduct(id) {
+  products = products.filter(p => p.id !== id);
+  updateProductsList();
+}
+
+function updateProductsList() {
+  const list = document.getElementById('productsList');
+  const counter = document.getElementById('productCounter');
+  
+  counter.textContent = products.length;
+  
+  if(products.length === 0) {
+    list.innerHTML = '<p style="color:#999;margin:0">لم تضف أي منتجات بعد</p>';
     return;
   }
+  
+  list.innerHTML = products.map(p => `
+    <div class="product-item">
+      <div>
+        <strong>${p.name}</strong>
+        <br>
+        <small style="color:#666">الكمية: ${p.quantity} | السعر: ${p.price} جنيه</small>
+      </div>
+      <button onclick="removeProduct(${p.id})">حذف</button>
+    </div>
+  `).join('');
+}
 
-  // ضع رقم واتساب الخاص بك هنا بصيغة دولية بدون + أو مسافات
-  const ownerWhatsApp = "201000000000";
+function scrollToAdd(productName) {
+  document.getElementById('orderSection').scrollIntoView({ behavior: 'smooth' });
+}
 
-  const message =
-`طلب توريد جديد
+function scrollToProducts() {
+  document.getElementById('productsList').scrollIntoView({ behavior: 'smooth' });
+}
+
+function showMessage(messageId) {
+  const msg = document.getElementById(messageId);
+  msg.style.display = 'block';
+  setTimeout(() => {
+    msg.style.display = 'none';
+  }, 3000);
+}
+
+function validateForm() {
+  const restaurant = document.getElementById('restaurant').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const area = document.getElementById('area').value;
+  const quantity = document.getElementById('quantity').value.trim();
+  const address = document.getElementById('address').value.trim();
+  
+  if(!restaurant || !phone || !area || !quantity || !address) {
+    return false;
+  }
+  
+  if(products.length === 0) {
+    alert('من فضلك أضف منتجات للطلب!');
+    return false;
+  }
+  
+  // التحقق من صيغة الهاتف المصري
+  if(!/^(01)[0-9]{9}$/.test(phone)) {
+    alert('من فضلك أدخل رقم موبايل مصري صحيح (01xxxxxxxxx)');
+    return false;
+  }
+  
+  return true;
+}
+
+function sendWhatsApp() {
+  if(!validateForm()) {
+    showMessage('errorMsg');
+    return;
+  }
+  
+  const restaurant = document.getElementById('restaurant').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const area = document.getElementById('area').value;
+  const quantity = document.getElementById('quantity').value.trim();
+  const address = document.getElementById('address').value.trim();
+  
+  // بناء قائمة المنتجات
+  let productsList = products.map(p => 
+    `• ${p.name}\n  الكمية: ${p.quantity}\n  السعر المتوقع: ${p.price} جنيه`
+  ).join('\n\n');
+  
+  const message = `🔔 طلب توريد جديد
+
+📍 بيانات العميل:
 اسم المطعم: ${restaurant}
-الهاتف: ${phone}
+رقم الموبايل: ${phone}
 المنطقة: ${area}
-الكمية/التفاصيل: ${quantity}
 العنوان: ${address}
 
-المنتجات المطلوبة:
-${products}`;
+📦 المنتجات المطلوبة:
+${productsList}
 
-  window.open('https://wa.me/' + ownerWhatsApp + '?text=' + encodeURIComponent(message), '_blank');
+📋 الكمية الإجمالية: ${quantity}
+
+---
+تم الطلب من خلال نظام توريدات مطاعم الإسكندرية
+شكراً لتعاملك معنا! 🙏`;
+
+  // فتح واتس آب برسالة معدة
+  const whatsappUrl = 'https://wa.me/' + ownerWhatsApp + '?text=' + encodeURIComponent(message);
+  window.open(whatsappUrl, '_blank');
+  
+  // مسح النموذج بعد الإرسال
+  setTimeout(() => {
+    clearForm();
+    alert('تم إرسال الطلب! سيتم التواصل معك قريباً بالتأكيد والسعر النهائي.');
+  }, 1000);
 }
+
+function clearForm() {
+  document.getElementById('restaurant').value = '';
+  document.getElementById('phone').value = '';
+  document.getElementById('area').value = '';
+  document.getElementById('quantity').value = '';
+  document.getElementById('address').value = '';
+  products = [];
+  updateProductsList();
+  document.getElementById('orderSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// تحديث قائمة المنتجات عند التحميل
+updateProductsList();
 </script>
+
 </body>
 </html>
